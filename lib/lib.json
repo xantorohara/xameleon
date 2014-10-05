@@ -1,0 +1,66 @@
+[
+    {"id": "hat/0"},
+    {"id": "hat/1"},
+    {"id": "hat/2"},
+    {"id": "hat/3"},
+    {"id": "hat/4"},
+    {"id": "hat/5"},
+    {"id": "hat/6"},
+    {"id": "hat/7"},
+    {"id": "hat/8"},
+    {"id": "hat/9"},
+
+    {"id": "mask/protivogaz","alpha": 0.1},
+    {"id": "mask/hannibal_lector"},
+    {"id": "mask/batman"},
+    {"id": "mask/butterfly"},
+    {"id": "mask/devil"},
+
+    {"id": "fantasy/elf", "x": 75, "y": 15, "color": "0xFFFFFF", "alpha": 0.1},
+    {"id": "fantasy/gendalf", "x": 100, "y": 25},
+    {"id": "fantasy/avatar", "x": 220, "y": 20, "color": "0x336699", "alpha": 0.75, "mode": "hue"},
+    {"id": "fantasy/vorobei", "x": 40, "y": 80},
+
+    {"id": "superhero/joker", "x": 95, "y": 40},
+    {"id": "superhero/hellboy", "x": 40, "y": 12, "color": "0xFF0000", "alpha": 0.5, "mode": "colorburn"},
+    {"id": "superhero/ironman", "x": 50, "y": 5, "color": "0x808080", "alpha": 0.5, "mode": "color"},
+    {"id": "superhero/spiderman", "x": 30, "y": 0, "color": "0xFFFFFF", "alpha": 0.5, "mode": "hue"},
+    {"id": "superhero/terminator", "x": 100, "y": 15, "color": "0x0066CC", "alpha": 0.15, "mode": "color"},
+    {"id": "superhero/riddick", "x": 100, "y": 50},
+
+    {"id": "cartoon/monster", "x": 15, "y": 0, "color": "0x77af28", "alpha": 0.5, "mode": "color"},
+    {"id": "cartoon/shrek", "x": 40, "y": 0, "color": "0x999900", "alpha": 0.6, "mode": "color"},
+
+    {"id": "misc/fbi", "x": 330, "y": 60},
+    {"id": "misc/driver_license", "x": -60, "y": 50},
+    {"id": "misc/dollar",  "x": 100, "y": 0, "color": "0x66CC99", "alpha": 0.40, "mode": "hue"},
+    {"id": "misc/polaroid"},
+    {"id": "misc/camera", "x": 180, "y": 110},
+    {"id": "misc/sniper", "x": 175, "y": 60, "color": "0xE5D2BA",  "alpha": 0.3},
+
+    {"id": "sexy/avatar", "x": 85, "y": 0, "color": "0x336699", "alpha": 0.75, "mode": "hue"},
+    {"id": "sexy/red", "color": "0xCC0000", "alpha": 0.5 },
+    {"id": "sexy/girl", "color": "0xFFCC99", "alpha": 0.1},
+    {"id": "sexy/snegurka", "x": 100, "y": 70, "color": "0xFFFFFF", "alpha": 0.1},
+
+    {"id": "freak/red_hair", "x": 0, "y": 100, "color": "0x000000"},
+    {"id": "freak/kloun", "x": 90, "y": 50, "color": "0xFFFFFF", "alpha": 0.1},
+    {"id": "freak/shlapnik", "x": 80, "y": 55},
+    {"id": "freak/gaga", "x": 140, "y": 0, "color": "0xFFFFFF", "alpha": 0.1},
+
+    {"id": "animal/monkey_new", "x": 100, "y": 60, "color": "0x808080", "alpha": 0.5},
+    {"id": "animal/monkey_old", "x": 85, "y": 65, "color": "0x808080", "alpha": 0.2},
+
+    {"id": "christmas/hat_blue"},
+    {"id": "christmas/hat_red"},
+    {"id": "christmas/santa_fuck", "x": 0, "y": 50, "color": "0xFFFFFF", "alpha": 0.1},
+    {"id": "christmas/sexy_snegurka"},
+    {"id": "christmas/girl", "color": "0xFFCC66", "alpha": 0.2, "mode": "overlay"},
+
+    {"id": "other/avatar_bin", "x": 45, "y": 0, "color": "0x336699", "alpha": 0.9, "mode": "hue"},
+
+    {"id": "person/usama", "x": 10, "y": 0},
+    {"id": "person/che", "x": 80, "y": 20,"color": "0x808080", "alpha": 1, "mode": "hue"},
+    {"id": "person/gagarin", "x": 150, "y": 100}
+
+]

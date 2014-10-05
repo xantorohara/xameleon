@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+    <link rel="icon" type="image/png" href="img/icon-016a.png"/>
+
+    <title>Xameleon</title>
+
+    <meta name="description" content="Web application where you can put your face into funny templates using web camera and share snapshots into social networks"/>
+    <meta name="keywords" content="photo, application, game, face, template, camera, facebook, share"/>
+    <meta name="google-site-verification" content="oav0jtkZWl0MHzVtiKKAfrzMedLkTlrozOQnQyVHyB8"/>
+
+    <meta property="fb:app_id" content="571410839552807"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="http://xantorohara.github.io/xameleon"/>
+    <meta property="og:title" content="Xameleon"/>
+    <meta property="og:image" content="http://xantorohara.github.io/xameleon/img/icon-100.png"/>
+    <meta property="og:description" content="Web application where you can put your face into funny templates using web camera and share snapshots into social networks"/>
+
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            border: none;
+            outline: none;
+            font-family: Grande, sans, sans-serif;
+        }
+    </style>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+    <script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>
+
+</head>
+<body style="padding: 5px;">
+<div id="fb-root"></div>
+
+<table style="width: 100%; border-collapse: collapse;">
+    <tr>
+        <td style="text-align: center;">
+            <!--script type="text/javascript">
+                google_ad_client = "ca-pub-6112298272240282";
+                /* xameleon_bar */
+                google_ad_slot = "2825138282";
+                google_ad_width = 120;
+                google_ad_height = 600;
+            </script>
+            <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script-->
+        </td>
+
+        <td style="width: 800px; text-align: center;">
+            <div id="flashContent">
+                <h1>You need at least Flash Player 9.0 to view this page.</h1>
+
+                <p><a href="http://www.adobe.com/go/getflashplayer"><img
+                        src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player"/></a></p>
+            </div>
+
+            <script type="text/javascript">
+                swfobject.embedSWF("xameleon.swf?20130102_08", "flashContent", "800", "600", "9.0", null, null, null, {name: "flashContent"});
+            </script>
+        </td>
+        <td style="text-align: center;">
+            <!--script type="text/javascript">
+                google_ad_client = "ca-pub-6112298272240282";
+                /* xameleon_bar */
+                google_ad_slot = "2825138282";
+                google_ad_width = 120;
+                google_ad_height = 600;
+            </script>
+            <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script-->
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td style="text-align: center; vertical-align: middle; height: 40px;">
+
+            <div id="fb_share" style="display: inline-block;  width: 300px;">
+                <script>(function (d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) return;
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=571410839552807";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));</script>
+
+                <fb:like send="true" layout="standard" width="200" show_faces="false"></fb:like>
+
+            </div>
+
+            <div id="gp_share" style="display: inline-block; width: 150px;">
+                <div class="g-plusone"></div>
+                <script type="text/javascript">
+                    (function () {
+                        var po = document.createElement('script');
+                        po.type = 'text/javascript';
+                        po.async = true;
+                        po.src = 'https://apis.google.com/js/plusone.js';
+                        var s = document.getElementsByTagName('script')[0];
+                        s.parentNode.insertBefore(po, s);
+                    })();
+                </script>
+            </div>
+
+            <div id="tw_share" style="display: inline-block; width: 150px;">
+                <a href="https://twitter.com/share" class="twitter-share-button" data-size="large">Tweet</a>
+                <script>!function (d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (!d.getElementById(id)) {
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = "//platform.twitter.com/widgets.js";
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }
+                }(document, "script", "twitter-wjs");</script>
+            </div>
+
+            <div id="vk_share" style="display: inline-block; width: 150px;">
+                <script type="text/javascript" src="//vk.com/js/api/openapi.js?75"></script>
+
+                <script type="text/javascript">
+                    VK.init({apiId: 3323043, onlyWidgets: true});
+                </script>
+
+                <div id="vk_like"></div>
+                <script type="text/javascript">
+                    VK.Widgets.Like("vk_like", {type: "button"});
+                </script>
+            </div>
+
+        </td>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+
+<p style="text-align: center; padding-top: 50px;">xameleon@manitau.com</p>
+
+</body>
+
+<!--GA-->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-37306800-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+</html>
