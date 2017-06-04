@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<mx:Box xmlns:mx="http://www.adobe.com/2006/mxml" verticalAlign="middle" horizontalAlign="center">
+
+    <mx:Script><![CDATA[
+        [Bindable]
+        private var imageData:String;
+
+        override public function set data(value:Object):void {
+            super.data = value;
+            if (value) {
+                imageData = 'lib/' + value.id + '/thumb.jpg?20130101';
+            }
+        }
+        ]]>
+    </mx:Script>
+
+    <mx:Image source="{imageData}" width="150" height="150" verticalAlign="middle" horizontalAlign="center" brokenImageBorderSkin="{null}"
+              brokenImageSkin="@Embed(source='images/404.jpg')"/>
+</mx:Box>
+

@@ -1,0 +1,321 @@
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:local="*" width="800" height="600" layout="vertical"
+                backgroundImage="@Embed(source='images/back.png')" backgroundSize="100%" backgroundColor="#4080A0"
+                paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0"
+                creationComplete="onCreationComplete()" activate="setDefaultFocus()" keyDown="onSnapshotSpace(event)">
+
+    <mx:Script><![CDATA[
+        import com.facebook.graph.Facebook;
+
+        import mx.collections.ArrayCollection;
+        import mx.controls.Alert;
+        import mx.controls.Alert;
+        import mx.core.FlexGlobals;
+        import mx.events.CloseEvent;
+        import mx.graphics.codec.JPEGEncoder;
+        import mx.rpc.events.FaultEvent;
+        import mx.rpc.events.ResultEvent;
+
+        [Bindable]
+        private var items:ArrayCollection = new ArrayCollection();
+
+        [Bindable]
+        private var item:Item;
+
+        [Bindable]
+        private var fileData:ByteArray;
+
+        private var file:FileReference = new FileReference();
+
+        private var counter:SharedObject;
+
+        private var video:Video;
+
+        private const modes:Array = ['add', 'alpha', 'darken', 'difference', 'erase', 'hardlight', 'invert', 'layer', 'lighten', 'multiply', 'normal', 'subtract', 'screen', 'overlay', 'colordodge', 'colorburn', 'exclusion', 'softlight', 'hue', 'saturation', 'color', 'luminosity'];
+
+        private static const FB_APP_ID:String = '571410839552807';
+
+        private var fbLogged:Boolean = false;
+
+        private function onCreationComplete():void {
+            if (url.indexOf('http://xantorohara.github.io/xameleon/') == 0 || url.indexOf('http://xameleon.local/') == 0) {
+                service.send();
+            } else {
+                return;
+            }
+
+
+            counter = SharedObject.getLocal('xameleon');
+            if (counter.size == 0) {
+                counter.data.counter = 1;
+            }
+
+            initCamera();
+            preview.addChild(video);
+
+            Facebook.init(FB_APP_ID, fbHandleInit);
+        }
+
+        private function setDefaultFocus():void {
+            vs.setFocus();
+        }
+
+        private function initCamera():void {
+            video = new Video(320, 240);
+            var cam:Camera = Camera.getCamera();
+            if (cam == null) {
+                Alert.show('Camera not avalable');
+            } else {
+                cam.setMode(320, 240, 25);
+                cam.setQuality(0, 100);
+                video.attachCamera(cam);
+                video.scaleX = -1;
+                video.x += 320;
+            }
+        }
+
+        private function gotoListPanel():void {
+            vs.selectedChild = listPanel;
+            display.addChild(video);
+        }
+
+        private function gotoEditPanel():void {
+            setDefaultFocus();
+            vs.selectedChild = editPanel;
+        }
+
+        private function gotoSavePanel():void {
+            vs.selectedChild = savePanel;
+        }
+
+        private function onImageSelected():void {
+            item = Item.create(thumbsList.selectedItem);
+            gotoEditPanel();
+        }
+
+        private function onSnapshotButton():void {
+            cameraEffect.play([vs]);
+            var image:BitmapData = new BitmapData(sceneCanvas.width, sceneCanvas.height);
+            image.draw(sceneCanvas);
+            fileData = new JPEGEncoder(90).encode(image);
+            gotoSavePanel();
+        }
+
+        private function onSnapshotSpace(event:KeyboardEvent):void {
+            if (event.keyCode == Keyboard.SPACE) {
+                onSnapshotButton();
+            }
+        }
+
+        private function fileSave():void {
+            file.save(fileData, 'xameleon-' + counter.data.counter + '.jpg');
+            counter.data.counter++;
+            counter.flush();
+        }
+
+        private function onServiceFault(event:FaultEvent):void {
+            trace(event.fault.faultString);
+            Alert.show(event.fault.faultString);
+        }
+
+        private function onServiceResult(event:ResultEvent):void {
+            var response:Object = JSON.parse(String(event.result));
+            if (response) {
+                items.source = response as Array;
+            } else {
+                Alert.show(String(event.result));
+            }
+        }
+
+        private function relabel(text:String):void {
+            xlabel.visible = false;
+            setTimeout(function ():void {
+                xlabel.text = text;
+
+                xlabel.visible = true;
+            }, 1000);
+
+        }
+
+        private function fbSave():void {
+            if (fbLogged) {
+                fbUpload();
+            } else {
+                Facebook.login(fbHandleLogin, {scope: 'user_photos, publish_stream'});
+            }
+        }
+
+        private function fbUpload():void {
+            Alert.show('Publish snapshot to facebook?', 'Save to facebook', Alert.YES | Alert.NO, null, function (event:CloseEvent):void {
+                if (event.detail == Alert.YES) {
+                    var values:Object = {message: 'Xameleon http://xantorohara.github.io/xameleon', fileName: 'xameleon.jpg', image: fileData};
+                    Facebook.postData('/me/photos', fbHandleUpload, values);
+                }
+            }, null, Alert.YES);
+        }
+
+        private function fbHandleInit(response:Object, fail:Object):void {
+            if (response) {
+                fbLogged = true;
+            }
+        }
+
+        private function fbHandleLogin(response:Object, fail:Object):void {
+            if (response) {
+                fbLogged = true;
+                fbUpload();
+            }
+        }
+
+        private function fbHandleUpload(response:Object, fail:Object):void {
+            //trace(response);
+            //Alert.show('Published ');
+        }
+        ]]></mx:Script>
+
+    <mx:Style source="Style.css"/>
+
+    <mx:HTTPService id="service" url="lib/lib.json?20130101" resultFormat="text" fault="onServiceFault(event)" result="onServiceResult(event)"/>
+
+    <mx:WipeLeft id="wipel" duration="500"/>
+    <mx:WipeRight id="wiper" duration="500"/>
+
+    <mx:Glow id="glowRed" duration="1000" alphaFrom="1" alphaTo="0" blurXFrom="0" blurXTo="50" blurYFrom="0" blurYTo="50" color="0xE00000"/>
+    <mx:Glow id="glowBlue" duration="1000" alphaFrom="1" alphaTo="0" blurXFrom="0" blurXTo="50" blurYFrom="0" blurYTo="50" color="0x60A0E0"/>
+
+    <mx:SoundEffect id="cameraEffect" source="@Embed(source='sounds/camera.mp3')"/>
+
+    <mx:Parallel id="seq" effectEnd="onSnapshotButton()">
+        <mx:SoundEffect source="@Embed(source='sounds/timer.mp3')" startDelay="500" repeatCount="4" repeatDelay="500"/>
+        <mx:Sequence>
+            <mx:Fade duration="1000" alphaFrom="1" alphaTo="0"/>
+            <mx:Fade duration="1000" alphaFrom="1" alphaTo="0"/>
+            <mx:Fade duration="1000" alphaFrom="1" alphaTo="0"/>
+            <mx:Fade duration="750" alphaFrom="1" alphaTo="0.1"/>
+            <mx:Pause duration="250"/>
+            <mx:SetPropertyAction name="alpha" value="1"/>
+        </mx:Sequence>
+    </mx:Parallel>
+
+    <mx:HBox width="100%" height="50" paddingRight="10" verticalAlign="middle">
+        <mx:Image source="@Embed(source='images/logo.png')"/>
+        <mx:Label id="xlabel" text="© 2013 Xantorohara"
+                  color="#FFFFFF" textAlign="right" width="100%" showEffect="wipel" hideEffect="wiper"/>
+    </mx:HBox>
+
+    <mx:ViewStack id="vs" width="100%" height="100%" creationPolicy="all">
+
+        <mx:Canvas id="welcome" useHandCursor="true" buttonMode="true" mouseChildren="true"
+                   verticalScrollPolicy="off" horizontalScrollPolicy="off" click="gotoListPanel()">
+            <mx:Image width="160" height="120" x="195" y="395" source="@Embed(source='images/grid.png')" scaleContent="false"/>
+            <mx:UIComponent id="preview" width="160" height="120" x="195" y="395" scaleX="0.5" scaleY="0.5"/>
+            <mx:Image x="0" y="0" source="@Embed(source='images/main.png')"/>
+            <mx:Label bottom="10" right="10" text="xantorohara.github.io/xameleon" color="#FFFFFF"/>
+        </mx:Canvas>
+
+        <mx:VBox id="listPanel" verticalScrollPolicy="off" show="relabel('Step 1/3: enable camera and choose template')">
+
+            <mx:TileList id="thumbsList" width="100%" height="100%" rowHeight="160" columnWidth="154"
+                         backgroundColor="#FEFEFE" borderStyle="solid" borderColor="#C0C0C0"
+                         selectionColor="#4080C0" rollOverColor="#60A0E0" selectionDuration="500"
+
+                         dataProvider="{items}" itemRenderer="ThumbRenderer"
+                         doubleClickEnabled="true" itemClick="onImageSelected()"/>
+
+            <mx:HBox width="100%" horizontalAlign="right" verticalAlign="middle">
+                <local:ButtonImage source="@Embed(source='images/btn_next.png')" click="gotoEditPanel()"
+                                   toolTip="Go to take snapshot"
+                                   enabled="{thumbsList.selectedItem}" rollOverEffect="{glowBlue}" mouseDownEffect="{glowBlue}"/>
+            </mx:HBox>
+        </mx:VBox>
+
+        <mx:VBox id="editPanel" show="relabel('Step 2/3: adjust and take snapshot')">
+            <mx:VBox width="100%" height="100%">
+                <mx:Box width="100%" height="100%" horizontalAlign="center" verticalAlign="middle"
+                        backgroundImage="@Embed(source='images/grid.png')" borderStyle="solid"
+                        borderColor="#C0C0C0">
+                    <mx:Canvas id="sceneCanvas">
+                        <mx:UIComponent id="display" width="320" height="240" x="{item.x}" y="{item.y}"/>
+
+                        <mx:Box id="xbg" width="320" height="240" x="{item.x}" y="{item.y}"
+                                backgroundColor="{colorPicker.selectedColor}"
+                                blendMode="{modeSelector.selectedItem||BlendMode.NORMAL}"
+                                alpha="{alphaSlider.value}"/>
+
+                        <mx:Image id="xfg" source="lib/{item.id}/image.png?20130101" showBusyCursor="true"
+                                  maxHeight="432" maxWidth="768" scaleContent="false"/>
+
+                    </mx:Canvas>
+                </mx:Box>
+
+                <mx:HBox id="settings" width="100%" height="50" horizontalGap="5" verticalAlign="middle" paddingLeft="5" paddingRight="5">
+                    <mx:Image source="@Embed(source='images/tool.png')"/>
+
+                    <mx:Spacer width="25"/>
+                    <mx:Label text="Filter mode:"/>
+                    <mx:ComboBox id="modeSelector" dataProvider="{modes}" selectedItem="{item.mode}" cornerRadius="0"
+                                 toolTip="{modeSelector.selectedItem}"
+                                 selectionColor="#4080C0" rollOverColor="#60A0E0" themeColor="#4080C0"/>
+                    <mx:Spacer width="25"/>
+                    <mx:Label text="Alpha:"/>
+                    <mx:HSlider id="alphaSlider" minimum="0" maximum="1" width="100" value="{item.alpha}"
+                                liveDragging="true" thumbOffset="-5"
+                                thumbSkin="@Embed(source='images/slider_thumb.png')" trackSkin="@Embed(source='images/slider_track.png')"
+                                themeColor="#4080C0"/>
+                    <mx:Spacer width="25"/>
+                    <mx:Label text="Color:"/>
+                    <mx:ColorPicker id="colorPicker" selectedColor="{item.color}"/>
+                    <mx:Spacer width="25"/>
+                </mx:HBox>
+            </mx:VBox>
+
+            <mx:HBox height="60" width="100%" verticalAlign="middle">
+                <local:ButtonImage source="@Embed(source='images/btn_prev.png')" click="gotoListPanel()"
+                                   toolTip="Back to templates"
+                                   rollOverEffect="{glowBlue}" mouseDownEffect="{glowBlue}"/>
+                <mx:Spacer width="50%"/>
+                <local:ButtonImage source="@Embed(source='images/btn_snap.png')" click="onSnapshotButton()"
+                                   toolTip="Take snapshot now"
+                                   rollOverEffect="{glowRed}" mouseDownEffect="{glowRed}"/>
+                <local:ButtonImage id="delay" source="@Embed(source='images/btn_time.png')" click="{seq.play([delay])}"
+                                   toolTip="Delay snapshot for 3 seconds"
+                                   rollOverEffect="{glowRed}" mouseDownEffect="{glowRed}"/>
+                <mx:Spacer width="50%"/>
+                <local:ButtonImage source="@Embed(source='images/btn_next.png')" click="gotoSavePanel()"
+                                   toolTip="Go to save snapshot"
+                                   enabled="{!!fileData}" rollOverEffect="{glowBlue}" mouseDownEffect="{glowBlue}"/>
+            </mx:HBox>
+
+        </mx:VBox>
+
+        <mx:VBox id="savePanel" show="relabel('Step 3/3: save snapshot')">
+
+            <mx:Box width="100%" height="100%" verticalAlign="middle" horizontalAlign="center">
+                <mx:Image id="saveImage" source="{fileData}"/>
+            </mx:Box>
+
+            <mx:Spacer height="50"/>
+
+            <mx:HBox width="100%">
+                <local:ButtonImage source="@Embed(source='images/btn_prev.png')" click="gotoEditPanel()"
+                                   toolTip="Back to take snapshot"
+                                   rollOverEffect="{glowBlue}" mouseDownEffect="{glowBlue}"/>
+                <mx:Spacer width="50%"/>
+                <local:ButtonImage source="@Embed(source='images/btn_save.png')" click="fileSave()"
+                                   toolTip="Save to file"
+                                   rollOverEffect="{glowBlue}" mouseDownEffect="{glowBlue}"/>
+
+                <local:ButtonImage source="@Embed(source='images/btn_facebook.png')" id="fbLoginButton" click="fbSave()"
+                                   toolTip="Save to facebook"
+                                   rollOverEffect="{glowBlue}" mouseDownEffect="{glowBlue}"/>
+
+                <mx:Spacer width="50%"/>
+                <local:ButtonImage source="@Embed(source='images/btn_loop.png')" click="gotoListPanel()"
+                                   toolTip="Replay"
+                                   rollOverEffect="{glowBlue}" mouseDownEffect="{glowBlue}"/>
+            </mx:HBox>
+
+        </mx:VBox>
+
+    </mx:ViewStack>
+
+</mx:Application>

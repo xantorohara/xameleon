@@ -1,0 +1,53 @@
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+global {
+    fontSize: 15;
+    fontWeight: normal;
+    fontFamily: Verdana;
+    fontAntiAliasType: advanced;
+    paddingTop: 0;
+    paddingLeft: 0;
+    paddingRight: 0;
+    paddingBottom: 0;
+    horizontalGap: 0;
+    verticalGap: 0;
+}
+
+mx|ToolTip {
+    cornerRadius: 5;
+    fontSize: 12;
+    backgroundColor: #FEFEFE;
+    borderColor: #C0C0C0;
+}
+
+mx|Alert {
+    color: #336699;
+    backgroundColor: #FEFEFE;
+    headerColors: #4080C0, #4080C0;
+    headerHeight: 20;
+    dropShadowEnabled: true;
+    dropShadowColor: #4080C0;
+    cornerRadius: 5;
+    borderStyle: solid;
+    borderThickness: 1;
+    borderColor: #4080C0;
+    titleStyleName: alertTitle;
+}
+
+mx|VScrollBar {
+    borderColor: #E0E0E0;
+    trackColors: #E0E0E0, #E0E0E0;
+    fillColors: #C0C0C0, #C0C0C0;
+    fillAlphas: 1,1;
+    themeColor: #C0C0C0;
+    cornerRadius: 0;
+    thumbOffset: 1;
+    upArrowSkin: Embed(source = 'images/scroll_up.png');
+    downArrowSkin: Embed(source = 'images/scroll_down.png');
+    thumbIcon: Embed(source = 'images/scroll_thumb.png');
+}
+
+.alertTitle {
+    fontWeight: bold;
+    color: #2060A0;
+}
