@@ -27,12 +27,8 @@
         }
     </style>
 
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
-    <!--<script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>-->
-
 </head>
 <body style="padding: 5px;">
-<div id="fb-root"></div>
 
 <table style="width: 100%; border-collapse: collapse;">
     <tr>
@@ -48,17 +44,16 @@
         </td>
 
         <td style="width: 800px; text-align: center;">
-            <div id="flashContent">
-                <h1>You need at least Flash Player 9.0 to view this page.</h1>
 
-                <p><a href="http://www.adobe.com/go/getflashplayer"><img
-                        src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif"
-                        alt="Get Adobe Flash player"/></a></p>
-            </div>
-
-            <script type="text/javascript">
-                swfobject.embedSWF("xameleon.swf?20141005_00", "flashContent", "800", "600", "9.0", null, null, null, {name: "flashContent"});
-            </script>
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="800" height="600">
+        <param name="movie" value="xameleon.swf"/>
+        <param name="quality" value="high"/>
+        <param name="bgcolor" value="#EEE"/>
+        <object type="application/x-shockwave-flash" data="xameleon.swf" width="800" height="600">
+            <param name="quality" value="high"/>
+            <param name="bgcolor" value="#EEE"/>
+        </object>
+    </object>
         </td>
         <td style="text-align: center;">
             <!--script type="text/javascript">
@@ -70,67 +65,6 @@
             </script>
             <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script-->
         </td>
-    </tr>
-    <tr>
-        <td>&nbsp;</td>
-        <td style="text-align: center; vertical-align: middle; height: 40px;">
-
-            <!--div id="fb_share" style="display: inline-block;  width: 300px;">
-                <script>(function (d, s, id) {
-                    var js, fjs = d.getElementsByTagName(s)[0];
-                    if (d.getElementById(id)) return;
-                    js = d.createElement(s);
-                    js.id = id;
-                    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=571410839552807";
-                    fjs.parentNode.insertBefore(js, fjs);
-                }(document, 'script', 'facebook-jssdk'));</script>
-
-                <fb:like send="true" layout="standard" width="200" show_faces="false"></fb:like>
-
-            </div>
-
-            <div id="gp_share" style="display: inline-block; width: 150px;">
-                <div class="g-plusone"></div>
-                <script type="text/javascript">
-                    (function () {
-                        var po = document.createElement('script');
-                        po.type = 'text/javascript';
-                        po.async = true;
-                        po.src = 'https://apis.google.com/js/plusone.js';
-                        var s = document.getElementsByTagName('script')[0];
-                        s.parentNode.insertBefore(po, s);
-                    })();
-                </script>
-            </div>
-
-            <div id="tw_share" style="display: inline-block; width: 150px;">
-                <a href="https://twitter.com/share" class="twitter-share-button" data-size="large">Tweet</a>
-                <script>!function (d, s, id) {
-                    var js, fjs = d.getElementsByTagName(s)[0];
-                    if (!d.getElementById(id)) {
-                        js = d.createElement(s);
-                        js.id = id;
-                        js.src = "//platform.twitter.com/widgets.js";
-                        fjs.parentNode.insertBefore(js, fjs);
-                    }
-                }(document, "script", "twitter-wjs");</script>
-            </div>
-
-            <div id="vk_share" style="display: inline-block; width: 150px;">
-                <script type="text/javascript" src="//vk.com/js/api/openapi.js?75"></script>
-
-                <script type="text/javascript">
-                    VK.init({apiId: 3323043, onlyWidgets: true});
-                </script>
-
-                <div id="vk_like"></div>
-                <script type="text/javascript">
-                    VK.Widgets.Like("vk_like", {type: "button"});
-                </script>
-            </div-->
-
-        </td>
-        <td>&nbsp;</td>
     </tr>
 </table>
 </body>
